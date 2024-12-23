@@ -1,48 +1,50 @@
-"use client";
+"use client"
 
-import HeroCard from "@/components/card";
-import CarouselHero from "@/components/carousel";
-import { HeroCarousel } from "@/components/hero-carousel";
-import Navbar from "@/components/navbar";
-import { useState } from "react";
-// import { Dialog, DialogPanel } from '@headlessui/react'
-// import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import React, { useEffect, useState } from 'react';
+import { Bell, Fish, MapPin, Phone, Clock, ChevronRight, Star, DollarSign, ChevronLeft, Menu, X } from 'lucide-react';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { supabase } from '@/utils/supabase/client';
+import NavBar from '@/components/home/navbar';
+import HeroCarousel from '@/components/home/hero-carousel';
+import Sellers from '@/components/home/sellers';
+import Services from '@/components/home/services';
+import { Cta } from '@/components/home/cta';
+import Footer from '@/components/home/footer';
 
-const navigation = [
-  { name: "Product", href: "#" },
-  { name: "Features", href: "#" },
-  { name: "Marketplace", href: "#" },
-  { name: "Company", href: "#" },
-];
-
-const HeroEntity = {
-  title: "Hello there",
-  description: `Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
-              et a id nisi.`,
-};
-
-export default function Example() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
+export default function Home() {
   return (
-    <div className="container min-w-full static">
-      <Navbar />
-      <CarouselHero/>
-      <div className="hero bg-base-200 min-h-screen">
-        <div className="hero-content text-center">
-          <div className="max-w-md">
-            <h1 className="text-5xl font-bold">Hello there</h1>
-            <p className="py-6">
-              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
-              et a id nisi.
-            </p>
-            <button className="btn btn-primary">Get Started</button>
-          </div>
-        </div>
-      </div>
-      {/* <HeroCard /> */}
+    <div className="min-h-screen w-full bg-gray-50">
+      {/* Hero Section */}
+      <NavBar/>
+      {/* Hero Section with Carousel */}
+      <HeroCarousel/>
+      {/* Rest of the content remains the same */}
+      {/* Announcement Banner */}
+      {/* <Alert className="border-blue-200 bg-blue-50 mt-4 mx-4">
+        <Bell className="h-4 w-4" />
+        <AlertDescription>
+          New sustainable fishing guidelines are now in effect. Click here to learn more.
+        </AlertDescription>
+      </Alert> */}
+      {/* Sellers Section */}
+      {/* Announcement Banner */}
+      {/* <Alert className="border-blue-200 bg-blue-50 mt-4 mx-4">
+        <Bell className="h-4 w-4" />
+        <AlertDescription>
+          New sustainable fishing guidelines are now in effect. Click here to learn more.
+        </AlertDescription>
+      </Alert> */}
+      {/* Sellers Section */}
+      <Sellers/>
+      {/* Services Section */}
+      <Services/>
+      {/* CTA Section */}
+      <Cta/>
+      {/* Footer */}
+      <Footer/>
     </div>
   );
-}
+};
+
+// export default LandingPageTemplate;
