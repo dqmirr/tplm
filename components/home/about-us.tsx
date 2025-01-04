@@ -1,3 +1,5 @@
+"use client"
+
 import { ChevronDown, LockIcon, ServerIcon, LucideShoppingBasket, FishIcon } from 'lucide-react'
 
 const features = [
