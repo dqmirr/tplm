@@ -1,6 +1,7 @@
 import { supabase } from "@/utils/supabase/client";
 import { useQuery } from "@tanstack/react-query"
-import { Mail, MapPin, Phone } from  "lucide-react"
+import { Facebook, Instagram, Mail, MapPin, Phone } from  "lucide-react"
+import Whatsapp from "@/public/whatsapp-svgrepo-com.svg"
 
 export default function Footer (){
 
@@ -39,6 +40,16 @@ export default function Footer (){
       </li>
     </ul>
   </div>
+
+  <div>
+  <span className="text-bold text-lg">Sosial Media Kami</span>
+  <Facebook href="https://facebook.com/komeng.anglo/" />
+  <a href="https://wa.me/"> 
+  <Whatsapp />
+  </a>
+  <Instagram href="https://instagram.com/iwake_lukman_beji" />
+  </div>
+  
   <div className="mapouter col-start-4">
   <div className="gmap_canvas">
     <iframe

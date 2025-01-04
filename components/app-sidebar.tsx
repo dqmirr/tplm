@@ -5,6 +5,7 @@ import { VersionSwitcher } from "@/components/version-switcher";
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -21,7 +22,9 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@radix-ui/react-collapsible";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, ChevronUp, User2 } from "lucide-react";
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@radix-ui/react-dropdown-menu";
+import { NavUser } from "./nav-user";
 
 // This is sample data.
 const data = {
@@ -33,7 +36,7 @@ const data = {
       items: [
         {
           title: "Carousel",
-          url: "#",
+          url: "/dashboard/hero/carousel",
         },
         {
           title: "Edit Hero",
@@ -52,11 +55,7 @@ const data = {
         {
           title: "Tambah Penjual",
           url: "/dashboard/tambah_penjual",
-        },
-        {
-          title: "Edit Penjual",
-          url: "#",
-          isActive: true,
+          isActive:true
         },
       ],
     },
@@ -81,40 +80,43 @@ export function AppSidebar() {
   return (
     <Sidebar>
       <SidebarHeader>
-        <VersionSwitcher
-          versions={data.versions}
-          defaultVersion={data.versions[0]}
-        />
-        <SearchForm />
+        <h1 className="text-xl font-bold">Documentation</h1>
       </SidebarHeader>
-        {/* We create a SidebarGroup for each parent. */}
-        {data.navMain.map((item, index) => (
-      <SidebarContent key={index}>
-          <Collapsible defaultOpen className="group/collapsible">
-            <SidebarMenuItem key={index} className="list-none">
+
+      {/* Dynamic Sidebar Content */}
+      <SidebarContent>
+        {data.navMain.map((group, index) => (
+          <Collapsible key={index} defaultOpen className="group">
+            {/* Sidebar Group Title */}
+            <SidebarMenuItem>
               <CollapsibleTrigger asChild>
                 <SidebarMenuButton>
-                  <a>{item.title}</a>
-                  <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
+                  <span>{group.title}</span>
+                  <ChevronDown className="ml-auto transition-transform group-data-[state=open]:rotate-180" />
                 </SidebarMenuButton>
               </CollapsibleTrigger>
-              <CollapsibleContent>
-                {/* <SidebarGroupContent> */}
+
+              {/* Sidebar Group Items */}
+              <CollapsibleContent
+                className="overflow-hidden transition-all duration-300 ease-in-out"
+              >
                 <SidebarMenuSub>
-                  {item.items.map((item) => (
-                    <SidebarMenuSubItem key={item.title}>
+                  {group.items.map((item) => (
+                    <SidebarMenuSubItem key={item.title} >
                       <SidebarMenuButton isActive={item.isActive}>
                         <a href={item.url}>{item.title}</a>
                       </SidebarMenuButton>
                     </SidebarMenuSubItem>
                   ))}
                 </SidebarMenuSub>
-                {/* </SidebarGroupContent> */}
               </CollapsibleContent>
             </SidebarMenuItem>
           </Collapsible>
-      </SidebarContent>
         ))}
+      </SidebarContent>
+      <SidebarFooter>
+          <NavUser />
+        </SidebarFooter>
       <SidebarRail />
     </Sidebar>
   );
