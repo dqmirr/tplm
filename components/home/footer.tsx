@@ -2,6 +2,7 @@ import { supabase } from "@/utils/supabase/client";
 import { useQuery } from "@tanstack/react-query"
 import { Facebook, Instagram, Mail, MapPin, Phone } from  "lucide-react"
 import Whatsapp from "@/public/whatsapp-svgrepo-com.svg"
+import Link from "next/link";
 
 export default function Footer (){
 
@@ -22,7 +23,7 @@ export default function Footer (){
   if(error) return <p>{error.message}</p>
     return (
         <footer className="bg-gray-900 text-white py-8">
-  <div className="grid grid-cols-4 container mx-auto px-4">
+  <div className="grid grid-cols-5 container mx-auto px-4">
   <div>
     <h3 className="font-bold text-lg mb-4">Hubungi Kami</h3>
     <ul className="flex space-x-6">
@@ -41,16 +42,45 @@ export default function Footer (){
     </ul>
   </div>
 
-  <div>
-  <span className="text-bold text-lg">Sosial Media Kami</span>
-  <Facebook href="https://facebook.com/komeng.anglo/" />
-  <a href="https://wa.me/"> 
-  <Whatsapp />
-  </a>
-  <Instagram href="https://instagram.com/iwake_lukman_beji" />
+  <div className="col-start-3">
+  <h3 className="font-bold text-lg mb-4">Sosial Media Kami</h3>
+  <ul className="flex space-x-6">
+      <li className="flex items-center">
+      <Link href="https://facebook.com/komeng.anglo/">
+      <Facebook 
+      width={40}
+      height={40}
+      className="cursor-pointer"
+      />
+      </Link>
+      </li>
+      <li className="flex items-center">
+      <Link href="https://wa.me/6285643141235">
+      <Phone 
+      width={40}
+      height={40}
+      className="cursor-pointer"
+      />
+      </Link>
+      </li>
+      <li className="flex items-center">
+      <Link href="https://instagram.com/iwake_lukman_beji">
+      <Instagram 
+      width={40}
+      height={40}
+      className="cursor-pointer"
+      />
+      </Link>
+      </li>
+    </ul>
+  
+
+  
+
+  
   </div>
   
-  <div className="mapouter col-start-4">
+  <div className="mapouter col-start-5">
   <div className="gmap_canvas">
     <iframe
       className="gmap_iframe"
