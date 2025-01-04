@@ -24,7 +24,7 @@ import { DataTable } from "./data-table";
 import { useRouter } from "next/navigation";
 import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query'
 
-export async function getPenjualFn () {
+async function getPenjualFn () {
 
     const { data, error } = await supabase.from("penjual").select()
 
