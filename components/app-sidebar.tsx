@@ -1,7 +1,7 @@
-import * as React from "react"
+import * as React from "react";
 
-import { SearchForm } from "@/components/search-form"
-import { VersionSwitcher } from "@/components/version-switcher"
+import { SearchForm } from "@/components/search-form";
+import { VersionSwitcher } from "@/components/version-switcher";
 import {
   Sidebar,
   SidebarContent,
@@ -12,144 +12,74 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubItem,
   SidebarRail,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@radix-ui/react-collapsible";
+import { ChevronDown } from "lucide-react";
 
 // This is sample data.
 const data = {
   versions: ["1.0.1", "1.1.0-alpha", "2.0.0-beta1"],
   navMain: [
     {
-      title: "Getting Started",
+      title: "Hero",
       url: "#",
       items: [
         {
-          title: "Installation",
+          title: "Carousel",
           url: "#",
         },
         {
-          title: "Project Structure",
-          url: "#",
+          title: "Edit Hero",
+          url: "/dashboard/hero",
         },
       ],
     },
     {
-      title: "Building Your Application",
+      title: "Penjual",
       url: "#",
       items: [
         {
-          title: "Routing",
-          url: "#",
+          title: "Daftar Penjual",
+          url: "/dashboard/penjual",
         },
         {
-          title: "Data Fetching",
+          title: "Tambah Penjual",
+          url: "/dashboard/tambah_penjual",
+        },
+        {
+          title: "Edit Penjual",
           url: "#",
           isActive: true,
         },
-        {
-          title: "Rendering",
-          url: "#",
-        },
-        {
-          title: "Caching",
-          url: "#",
-        },
-        {
-          title: "Styling",
-          url: "#",
-        },
-        {
-          title: "Optimizing",
-          url: "#",
-        },
-        {
-          title: "Configuring",
-          url: "#",
-        },
-        {
-          title: "Testing",
-          url: "#",
-        },
-        {
-          title: "Authentication",
-          url: "#",
-        },
-        {
-          title: "Deploying",
-          url: "#",
-        },
-        {
-          title: "Upgrading",
-          url: "#",
-        },
-        {
-          title: "Examples",
-          url: "#",
-        },
       ],
     },
     {
-      title: "API Reference",
+      title: "Kontak",
       url: "#",
       items: [
         {
-          title: "Components",
-          url: "#",
+          title: "Edit Kontak",
+          url: "/dashboard/tambah_contacts",
         },
         {
-          title: "File Conventions",
-          url: "#",
-        },
-        {
-          title: "Functions",
-          url: "#",
-        },
-        {
-          title: "next.config.js Options",
-          url: "#",
-        },
-        {
-          title: "CLI",
-          url: "#",
-        },
-        {
-          title: "Edge Runtime",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Architecture",
-      url: "#",
-      items: [
-        {
-          title: "Accessibility",
-          url: "#",
-        },
-        {
-          title: "Fast Refresh",
-          url: "#",
-        },
-        {
-          title: "Next.js Compiler",
-          url: "#",
-        },
-        {
-          title: "Supported Browsers",
-          url: "#",
-        },
-        {
-          title: "Turbopack",
+          title: "Edit Service",
           url: "#",
         },
       ],
     },
   ],
-}
+};
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar() {
   return (
-    <Sidebar {...props}>
+    <Sidebar>
       <SidebarHeader>
         <VersionSwitcher
           versions={data.versions}
@@ -157,26 +87,35 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         />
         <SearchForm />
       </SidebarHeader>
-      <SidebarContent>
         {/* We create a SidebarGroup for each parent. */}
-        {data.navMain.map((item) => (
-          <SidebarGroup key={item.title}>
-            <SidebarGroupLabel>{item.title}</SidebarGroupLabel>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                {item.items.map((item) => (
-                  <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton asChild isActive={item.isActive}>
-                      <a href={item.url}>{item.title}</a>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))}
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
-        ))}
+        {data.navMain.map((item, index) => (
+      <SidebarContent key={index}>
+          <Collapsible defaultOpen className="group/collapsible">
+            <SidebarMenuItem key={index} className="list-none">
+              <CollapsibleTrigger asChild>
+                <SidebarMenuButton>
+                  <a>{item.title}</a>
+                  <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
+                </SidebarMenuButton>
+              </CollapsibleTrigger>
+              <CollapsibleContent>
+                {/* <SidebarGroupContent> */}
+                <SidebarMenuSub>
+                  {item.items.map((item) => (
+                    <SidebarMenuSubItem key={item.title}>
+                      <SidebarMenuButton isActive={item.isActive}>
+                        <a href={item.url}>{item.title}</a>
+                      </SidebarMenuButton>
+                    </SidebarMenuSubItem>
+                  ))}
+                </SidebarMenuSub>
+                {/* </SidebarGroupContent> */}
+              </CollapsibleContent>
+            </SidebarMenuItem>
+          </Collapsible>
       </SidebarContent>
+        ))}
       <SidebarRail />
     </Sidebar>
-  )
+  );
 }

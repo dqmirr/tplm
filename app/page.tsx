@@ -11,9 +11,14 @@ import Sellers from '@/components/home/sellers';
 import Services from '@/components/home/services';
 import { Cta } from '@/components/home/cta';
 import Footer from '@/components/home/footer';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import AboutUs from '@/components/home/about-us';
 
 export default function Home() {
+  const queryClient = new QueryClient();
   return (
+    <QueryClientProvider client={queryClient}>
+
     <div className="min-h-screen w-full bg-gray-50">
       {/* Hero Section */}
       <NavBar/>
@@ -24,26 +29,30 @@ export default function Home() {
       {/* <Alert className="border-blue-200 bg-blue-50 mt-4 mx-4">
         <Bell className="h-4 w-4" />
         <AlertDescription>
-          New sustainable fishing guidelines are now in effect. Click here to learn more.
+        New sustainable fishing guidelines are now in effect. Click here to learn more.
         </AlertDescription>
-      </Alert> */}
+        </Alert> */}
       {/* Sellers Section */}
       {/* Announcement Banner */}
       {/* <Alert className="border-blue-200 bg-blue-50 mt-4 mx-4">
         <Bell className="h-4 w-4" />
         <AlertDescription>
-          New sustainable fishing guidelines are now in effect. Click here to learn more.
+        New sustainable fishing guidelines are now in effect. Click here to learn more.
         </AlertDescription>
-      </Alert> */}
+        </Alert> */}
       {/* Sellers Section */}
+      <AboutUs />
+      
       <Sellers/>
+
       {/* Services Section */}
       <Services/>
       {/* CTA Section */}
-      <Cta/>
+      {/* <Cta/> */}
       {/* Footer */}
       <Footer/>
     </div>
+    </QueryClientProvider>
   );
 };
 
