@@ -1,3 +1,5 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
@@ -44,7 +46,7 @@ export default function AboutUsDashboard(){
             
                     // Database operation
                     const { data: upsertData, error: upsertError } = await supabase
-                      .from("hero")
+                      .from("tentang-kami")
                       .insert({
                         img_path: imageUrl,
                         tentang_kami
@@ -76,7 +78,7 @@ export default function AboutUsDashboard(){
 
     return(
         <div className="rounded-xl border bg-white text-card-foreground shadow-md col-span-4 m-8">
-            <h1 className="text-bold text-xl">Footer Section</h1>
+            <h1 className="text-bold text-xl">Tentang Kami Section</h1>
             <form onSubmit={
       (e)=>{
         e.preventDefault()
@@ -107,7 +109,7 @@ export default function AboutUsDashboard(){
           children={(field) => (
             <div className="grid grid-cols-6 w-full items-center gap-1.5 my-4 my-4">
               <Label htmlFor="picture" className="">
-                Carousel
+                Gambar
               </Label>
               <Dropzone onFileChange={field.handleChange} />
               {field.state.meta.errors ? (
@@ -120,7 +122,7 @@ export default function AboutUsDashboard(){
           name="tentang_kami"
           children={(field) => (
             <div className="grid grid-cols-6 w-full items-center gap-1.5 my-4">
-              <Label htmlFor={field.name} className="">Link Facebook</Label>
+              <Label htmlFor={field.name} className="">Tentang Kami</Label>
               <Input
                 id={field.name}
                 className="cols-span-4 w-80"
