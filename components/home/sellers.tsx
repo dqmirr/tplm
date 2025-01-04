@@ -8,8 +8,8 @@ import { supabase } from "@/utils/supabase/client";
 import { Penjual } from "@/app/dashboard/penjual/columns";
 
 export default function Sellers () {
-  const [selectedSeller, setSelectedSeller] = useState<string | null>();
-  const [ sellersData, setSellersData ] = useState<Penjual[] | null>();
+  const [selectedSeller, setSelectedSeller] = useState<any>();
+  const [ sellersData, setSellersData ] = useState<any[] | null>();
   const [ avatar, setAvatar ] = useState<string>();
 
   async function getPenjualFn(){
