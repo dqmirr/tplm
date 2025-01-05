@@ -73,6 +73,16 @@ const data = {
         },
       ],
     },
+    {
+      title: "Tentang Kami",
+      url: "#",
+      items: [
+        {
+          title: "Edit Tentang Kami",
+          url: "/dashboard/about-us",
+        },
+      ],
+    },
   ],
 };
 
