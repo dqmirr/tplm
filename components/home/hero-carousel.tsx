@@ -23,10 +23,27 @@ export default function HeroCarousel() {
     return carouselResults?.filter((item) => item && item.publicUrl) || [];
   }
 
+  const getHero = async()=>{
+    try {
+      const { data, error } = await supabase.from("hero").select("*").eq('id', 1);
+      if(error){
+        throw new Error(`Terjadi error ${error}`)
+      }
+      return data;
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   const { data = [], isLoading, error } = useQuery({
     queryKey: ["carousels"],
     queryFn: getCarousels
   });
+
+  const {data: heroData, isLoading: loadingHero, error: errorHero} = useQuery({
+    queryKey:['hero'],
+    queryFn: getHero
+  })
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -39,6 +56,10 @@ export default function HeroCarousel() {
   if (isLoading) return <p>Loading....</p>;
   if (error) return <p>{error.message}</p>;
   if (!data.length) return null;
+
+  if (loadingHero) return <p>Loading....</p>;
+  if (errorHero) return <p>{errorHero.message}</p>;
+  if (!heroData) return null;
 
   const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % data.length);
   const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + data.length) % data.length);
@@ -54,8 +75,8 @@ export default function HeroCarousel() {
           />
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center">
-              <h1 className="text-5xl font-bold mb-4">Pasar Ikan Desa Beji</h1>
-              <p className="text-xl mb-8">Deskripsi</p>
+              <h1 className="text-5xl font-bold mb-4">{heroData[0].heading}</h1>
+              <p className="text-xl mb-8">{heroData[0].desc}</p>
               <div className="flex justify-center gap-4">
                 <button className="bg-blue-500 hover:bg-blue-600 px-6 py-3 rounded-lg font-medium">
                   Find Markets Near You
