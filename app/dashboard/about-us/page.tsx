@@ -12,46 +12,47 @@ export default function AboutUsDashboard(){
         const form = useForm({
             defaultValues:{
                 tentang_kami:'',
-                img_path:undefined as File | undefined
-                ,
+                img_path:undefined as File | undefined,
             },
             onSubmit: async ({ value }) => {
                 try {
                     const { img_path, tentang_kami } = value;
-                    let imageUrl = null;
+                    // let imageUrl = null;
             
-                    // Handle file upload if image is present
-                    if (img_path) {
-                      console.log("Attempting to upload file:", img_path.name);
+                    // // Handle file upload if image is present
+                    // if (img_path) {
+                    //   console.log("Attempting to upload file:", img_path.name);
             
-                      const { data: uploadData, error: uploadError } =
-                        await supabase.storage
-                          .from("tplm")
-                          .upload(`carousel/${img_path.name}`, img_path);
+                    //   const { data: uploadData, error: uploadError } =
+                    //     await supabase.storage
+                    //       .from("tplm")
+                    //       .upload(`about-us/${img_path.name}`, img_path);
             
-                      if (uploadError) {
-                        console.error("Upload error details:", uploadError);
-                        throw uploadError;
-                      }
+                    //   if (uploadError) {
+                    //     console.log('path', uploadData)
+                    //     console.error("Upload error details:", uploadError);
+                    //     throw uploadError;
+                    //   }
             
-                      console.log("File upload successful:", uploadData);
-                      imageUrl = uploadData?.path;
-                    }
+                    //   console.log("File upload successful:", uploadData);
+                    //   imageUrl = uploadData?.path;
+                    // }
             
-                    // Log the data being sent to the database
-                    console.log("Attempting to save to database:", {
-                      img_path: imageUrl,
-                      tentang_kami
-                    });
+                    // // Log the data being sent to the database
+                    // console.log("Attempting to save to database:", {
+                    //   img_path: imageUrl,
+                    //   tentang_kami
+                    // });
             
                     // Database operation
                     const { data: upsertData, error: upsertError } = await supabase
                       .from("tentang-kami")
-                      .insert({
-                        img_path: imageUrl,
+                      .update({
+                        // img_path: imageUrl,
                         tentang_kami
                       })
-                      .select();
+                      .eq('id', 1)
+                      .single();
             
                     if (upsertError) {
                       console.error("Database error details:", upsertError);
@@ -86,7 +87,7 @@ export default function AboutUsDashboard(){
         form.handleSubmit()
       }} 
       className="m-4">
-       <form.Field
+       {/* <form.Field
           name="img_path"
           validators={{
             onChange: ({ value }) => {
@@ -117,7 +118,7 @@ export default function AboutUsDashboard(){
               ) : null}
             </div>
           )}
-        />
+        /> */}
        <form.Field
           name="tentang_kami"
           children={(field) => (

@@ -1,5 +1,7 @@
 "use client"
 
+import { supabase } from '@/utils/supabase/client';
+import { useQuery } from '@tanstack/react-query';
 import { ChevronDown, LockIcon, ServerIcon, LucideShoppingBasket, FishIcon } from 'lucide-react'
 
 const features = [
@@ -22,6 +24,28 @@ const features = [
 ]
 
 export default function AboutUs() {
+
+  const getTentangKami = async()=>{
+      try {
+        const { data, error } = await supabase.from("tentang-kami").select("*").eq('id', 1);
+        if(error){
+          throw new Error(`Terjadi error ${error}`)
+        }
+        return data;
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+    const {data, isLoading, error} = useQuery({
+      queryKey:['tentang-kami'],
+      queryFn: getTentangKami
+    })
+
+  if (isLoading) return <p>Loading....</p>;
+  if (error) return <p>{error.message}</p>;
+  if (!data) return null;
+
   return (
     <div className="overflow-hidden bg-white py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -33,19 +57,19 @@ export default function AboutUs() {
                 A better workflow
               </p> */}
               <p className="mt-6 text-lg/8 text-gray-600">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam condimentum convallis orci a vulputate. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed congue, mi sed aliquet lobortis, nulla urna placerat tellus, id mollis dolor felis a lectus. In euismod a est posuere scelerisque. Cras porttitor ante ac quam consectetur, id vestibulum erat pulvinar. Integer non suscipit elit. Donec cursus odio arcu, eu volutpat ante lobortis vel.
+              {data[0].tentang_kami}
               </p>
-              <dl className="mt-10 max-w-xl space-y-8 text-base/7 text-gray-600 lg:max-w-none">
+              {/* <dl className="mt-10 max-w-xl space-y-8 text-base/7 text-gray-600 lg:max-w-none">
                 {features.map((feature) => (
                   <div key={feature.name} className="relative pl-9">
                     <dt className="inline font-semibold text-gray-900">
                       <feature.icon aria-hidden="true" className="absolute left-1 top-1 size-5 text-indigo-600" />
                       {feature.name}
-                    </dt>{' '}
+                    </dt>
                     <dd className="inline">{feature.description}</dd>
                   </div>
                 ))}
-              </dl>
+              </dl> */}
             </div>
           </div>
           <img
