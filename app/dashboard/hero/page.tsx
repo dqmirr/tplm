@@ -24,11 +24,12 @@ export default function HeroDashboard() {
         // Database operation
         const { data: upsertData, error: upsertError } = await supabase
           .from("hero")
-          .upsert({
+          .update({
             heading,
             desc: description,
           })
-          .select();
+          .eq('id', 1)
+          .single();
 
         if (upsertError) {
           console.error("Database error details:", upsertError);
